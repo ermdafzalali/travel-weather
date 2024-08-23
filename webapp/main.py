@@ -35,6 +35,22 @@ def countries():
 def monthly_average(country: str, city: str, month: str):
     return data[country][city][month]
 
+#return cities
+@app.get('/countries/{country}')
+def cities(country: str):
+    return list(data[country].keys())
+
+#return cities for all countries
+@app.get('/cities')
+def cities():
+    cities = []
+    for country in data:
+        for city in data[country]:
+            cities.append(city)
+    return
+
+
+
 # Generate the OpenAPI schema:
 openapi_schema = app.openapi()
 with open(join(wellknown_path, "openapi.json"), "w") as f:
